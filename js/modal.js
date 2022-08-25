@@ -13,8 +13,6 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const modalCross = document.querySelector(".close");
 
-
-
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
@@ -36,154 +34,228 @@ modalCross.addEventListener("click", closeModal);
 // Form validation RegExp
 // **********************************
 
-// *****Email*****
+// *********Validation Prénom ********************
 
-let form = document.querySelector('#loginForm');
+//création de la constante prenom
 
-console.log(form.email);
+const prenom = document.querySelector("#first");
+
+// Création de la balise p pour affichage message d'erreur
+
+const prenomErrorMessage = document.createElement("p");
+
+// //Ecouter la modification
+
+prenom.addEventListener("keyup", validatePrenom);
+
+//Fonction et RegExp
+
+function validatePrenom() {
+  const prenomRegExp = /^[a-zA-ZÀ-ÿ-]+$/;
+
+  //Vérification du nombre de caractères saisis
+  if (prenom.value.length < 2) {
+    //Bordures en rouge si prénom < 2 caractère
+    prenom.style.border = "3px solid red";
+    //Message d'erreur
+    prenomErrorMessage.textContent =
+      "Veuillez entrer 2 caractères ou plus pour le prénom.";
+    //Application de la class CSS
+    prenomErrorMessage.classList.add("errorClass");
+    //Injection de la balise 'p' dans le composant parent de l'input prenom
+    prenom.parentElement.appendChild(prenomErrorMessage);
+    //Retour faux pour la validation du formulaire
+    return false;
+
+    //Vérification du type de caractère saisis
+  } else if (!prenomRegExp.test(prenom.value)) {
+    //Si les paramamètres de la RegExp non respectés
+    //Bordures en rouge
+    prenom.style.border = "3px solid red";
+    //Message d'erreur
+    prenomErrorMessage.textContent =
+      "Le prénom ne peut pas contenir de chiffres, de caractères spéciaux ni d'espace.";
+    //Application de la class CSS
+    prenomErrorMessage.classList.add("errorClass");
+    //Injection de la balise 'p' dans le composant parent de l'input prenom
+    prenom.parentElement.appendChild(prenomErrorMessage);
+    //return false in order to impeed form validation
+    return false;
+  } else {
+    //Si aucune des conditions ci-dessous ne sont validées, cela signifie que l'utilisateur à saisi un prénom correct
+    //Bordures en rouge
+    prenom.style.border = "3px solid green";
+    //Retirer message d'erreur / Ne rien afficher
+    prenomErrorMessage.classList.remove("errorClass");
+    prenomErrorMessage.textContent = "";
+    //Retour vrai pour la validation du formulaire
+    return true;
+  }
+}
+
+// *********Validation Nom ********************
+
+//création de la constante nom
+
+const nom = document.querySelector("#last");
+
+// Création de la balise p pour affichage message d'erreur
+
+const nomErrorMessage = document.createElement("p");
+
+// //Ecouter la modification
+
+nom.addEventListener("keyup", validateNom);
+
+//Fonction et RegExp
+
+function validateNom() {
+  const nomRegExp = /^[a-zA-ZÀ-ÿ-]+$/;
+
+  //Vérification du nombre de caractères saisis
+  if (nom.value.length < 2) {
+    //Bordures en rouge si prénom < 2 caractère
+    nom.style.border = "3px solid red";
+    //Message d'erreur
+    nomErrorMessage.textContent =
+      "Veuillez entrer 2 caractères ou plus pour le nom.";
+    //Application de la class CSS
+    nomErrorMessage.classList.add("errorClass");
+    //Injection de la balise 'p' dans le composant parent de l'input nom
+    nom.parentElement.appendChild(nomErrorMessage);
+    //Retour faux pour la validation du formulaire
+    return false;
+
+    //Vérification du type de caractère saisis
+  } else if (!nomRegExp.test(nom.value)) {
+    //Si les paramamètres de la RegExp non respectés
+    //Bordures en rouge
+    nom.style.border = "3px solid red";
+    //Message d'erreur
+    nomErrorMessage.textContent =
+      "Le nom ne peut pas contenir de chiffres, de caractères spéciaux ni d'espace.";
+    //Application de la class CSS
+    nomErrorMessage.classList.add("errorClass");
+    //Injection de la balise 'p' dans le composant parent de l'input nom
+    nom.parentElement.appendChild(nomErrorMessage);
+    //return false in order to impeed form validation
+    return false;
+  } else {
+    //Si aucune des conditions ci-dessous ne sont validées, cela signifie que l'utilisateur à saisi un prénom correct
+    //Bordures en rouge
+    nom.style.border = "3px solid green";
+    //Retirer message d'erreur / Ne rien afficher
+    nomErrorMessage.classList.remove("errorClass");
+    nomErrorMessage.textContent = "";
+    //Retour vrai pour la validation du formulaire
+    return true;
+  }
+}
+
+// *********Validation email ********************
+
+let email = document.querySelector("#email");
+
+const EmailFormErrorMessage = document.createElement("p");
 
 //Ecouter la modification de l'e-mail
 
-form.email.addEventListener('change', function() {
-    validEmail(this);
+email.addEventListener("change", function () {
+  validEmail(this);
 });
 
-// *********Validation Email********************
-
-const validEmail = function(inputEmail) {
-
+const validEmail = function (inputEmail) {
   //création de la regex pour la validation email
 
   let emailRegExp = new RegExp(
-      '^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$', 'g'
+    "^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$",
+    "g"
   );
 
   let testEmail = emailRegExp.test(inputEmail.value);
 
+  // Test de la regex
 
-  // Récupération de la balise small
-
-  let small = inputEmail.nextElementSibling;
-
-    // Test de la regex
-
-  if(testEmail){
-      small.innerHTML="Adresse mail valide";
-      small.classList.remove('text-danger');
-      small.classList.add('text-success');
+  if (testEmail) {
+    email.style.border = "3px solid green";
+  } else {
+    email.appendChild(EmailFormErrorMessage);
+    email.style.border = "3px solid red";
+    EmailFormErrorMessage.classList.add("errorClass");
+    EmailFormErrorMessage.textContent = "Adresse email non valide";
   }
-
-  else{
-      small.innerHTML="Adresse non valide";
-      small.classList.remove('text-success');
-      small.classList.add('text-danger');
-      
-  }
-
 };
 
-// *********Validation Prénon ********************
+// *********Validation tournois ********************
 
-//Ecouter la modification prénom
+const quantity = document.querySelector("#quantity");
 
-form.first.addEventListener('change', function() {
-  validFirst(this);
-});
+quantity.addEventListener("change", validateUpDown);
 
-const validFirst = function(inputFirst) {
-
-  let msg;
-  let valid = false;
-
-  //Au moins 2 caracteres
-
-  if (inputFirst.value.length < 2) {
-      msg = 'le prénom doit contenir au moins 2 caractères';
+const quantityErrorMessage = document.createElement("p");
+//this function only applies to the up and down arrows of the quantity input
+function validateUpDown() {
+  //if e.target.value is >=0, then success message
+  if (quantity.value >= 0 && quantity.value <= 99) {
+    quantity.style.border = "3px solid green";
+    quantityErrorMessage.classList.remove("errorClass");
+    quantityErrorMessage.textContent = "";
   }
-
-  //Mdp Valide
-
-  else{
-      msg ='le prénom est valide';
-      valid = true;
+  //if e.target.value is undefined or <0, then error message
+  else {
+    quantity.style.border = "3px solid red";
+    quantityErrorMessage.textContent =
+      "Veuillez entrer un nombre entre 1 et 99.";
+    quantityErrorMessage.classList.add("errorClass");
+    quantity.parentElement.appendChild(quantityErrorMessage);
   }
+}
 
-  //affichage
+// *********Validation villes ********************
 
-      // Récupération de la balise small
+//création de la constante city
 
-      let small = inputFirst.nextElementSibling;
+const cityForm = document.querySelector("#location");
 
-      // Test de la regex
+// Création de la balise p pour affichage message d'erreur
 
-    if(valid){
-        small.innerHTML="Prénom valide";
-        small.classList.remove('text-danger');
-        small.classList.add('text-success');
-        return true;
+const cityFormErrorMessage = document.createElement("p");
 
-    }
+// //Ecouter la modification
 
-    else{
-        small.innerHTML = msg;
-        small.classList.remove('text-success');
-        small.classList.add('text-danger');
-        return false;
-    }
+cityForm.addEventListener("change", validateLocation);
 
-};
-
-// *********Validation Nom ********************
-
-//Ecouter la modification prénom
-
-form.last.addEventListener('change', function() {
-  validLast(this);
-});
-
-const validLast = function(inputLast) {
-
-  let msg;
-  let valid = false;
-
-  //Au moins 2 caracteres
-
-  if (inputLast.value.length < 2) {
-      msg = 'le Nom doit contenir au moins 2 caractères';
+function validateLocation() {
+  if (document.querySelector("input[name='location']:checked") === null) {
+    cityFormErrorMessage.textContent = "Veuillez sélectionner une ville.";
+    cityFormErrorMessage.classList.add("errorClass");
+    cityForm.appendChild(cityFormErrorMessage);
+  } else {
+    cityFormErrorMessage.classList.remove("errorClass");
+    cityFormErrorMessage.textContent = "";
   }
+}
 
-  //Mdp Valide
+// // // *********Validation Terms ********************
 
-  else{
-      msg ='le Nom est valide';
-      valid = true;
+const checkboxTerms = document.querySelector("#checkbox1");
+
+const termsErrorMessage = document.createElement("p");
+
+checkboxTerms.addEventListener("change", validCheckbox);
+
+function validCheckbox() {
+  if (document.getElementById("checkbox1").checked) {
+    termsErrorMessage.classList.remove("errorClass");
+    termsErrorMessage.textContent = "";
+    return true;
+  } else {
+    termsErrorMessage.textContent =
+      "Le nom ne peut pas contenir de chiffres, de caractères spéciaux ni d'espace.";
+    termsErrorMessage.classList.add("errorClass");
+    termsErrorMessage.appendChild(termsErrorMessage);
+    return false;
   }
+}
 
-  //affichage
-
-      // Récupération de la balise small
-
-      let small = inputLast.nextElementSibling;
-
-      // Test de la regex
-
-    if(valid){
-        small.innerHTML="Nom valide";
-        small.classList.remove('text-danger');
-        small.classList.add('text-success');
-        return true;
-
-    }
-
-    else{
-        small.innerHTML = msg;
-        small.classList.remove('text-success');
-        small.classList.add('text-danger');
-        return false;
-    }
-
-};
-
-
-
-
+console.log(validCheckbox);
