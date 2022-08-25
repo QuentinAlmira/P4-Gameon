@@ -154,37 +154,36 @@ function validateNom() {
 
 // *********Validation email ********************
 
-let email = document.querySelector("#email");
+const email = document.querySelector("#email");
 
-const EmailFormErrorMessage = document.createElement("p");
+const emailErrorMessage = document.createElement("p");
 
-//Ecouter la modification de l'e-mail
+email.addEventListener("keyup", validateEmail);
 
-email.addEventListener("change", function () {
-  validEmail(this);
-});
+//Fonction et RegExp
 
-const validEmail = function (inputEmail) {
-  //création de la regex pour la validation email
+function validateEmail() {
+  const emailRegExp =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  let emailRegExp = new RegExp(
-    "^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$",
-    "g"
-  );
-
-  let testEmail = emailRegExp.test(inputEmail.value);
-
-  // Test de la regex
-
-  if (testEmail) {
-    email.style.border = "3px solid green";
-  } else {
-    email.appendChild(EmailFormErrorMessage);
+  if (!emailRegExp.test(email.value)) {
     email.style.border = "3px solid red";
-    EmailFormErrorMessage.classList.add("errorClass");
-    EmailFormErrorMessage.textContent = "Adresse email non valide";
+
+    emailErrorMessage.textContent = "Adresse email non valide";
+
+    emailErrorMessage.classList.add("errorClass");
+
+    email.parentElement.appendChild(emailErrorMessage);
+
+    return false;
+  } else {
+    email.style.border = "3px solid green";
+    emailErrorMessage.classList.remove("errorClass");
+    emailErrorMessage.textContent = "";
+
+    return true;
   }
-};
+}
 
 // *********Validation tournois ********************
 
@@ -193,16 +192,13 @@ const quantity = document.querySelector("#quantity");
 quantity.addEventListener("change", validateUpDown);
 
 const quantityErrorMessage = document.createElement("p");
-//this function only applies to the up and down arrows of the quantity input
+
 function validateUpDown() {
-  //if e.target.value is >=0, then success message
   if (quantity.value >= 0 && quantity.value <= 99) {
     quantity.style.border = "3px solid green";
     quantityErrorMessage.classList.remove("errorClass");
     quantityErrorMessage.textContent = "";
-  }
-  //if e.target.value is undefined or <0, then error message
-  else {
+  } else {
     quantity.style.border = "3px solid red";
     quantityErrorMessage.textContent =
       "Veuillez entrer un nombre entre 1 et 99.";
@@ -257,5 +253,3 @@ function validCheckbox() {
     return false;
   }
 }
-
-console.log(validCheckbox);
