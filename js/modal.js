@@ -169,7 +169,7 @@ function validateEmail() {
   if (!emailRegExp.test(email.value)) {
     email.style.border = "3px solid red";
 
-    emailErrorMessage.textContent = "Adresse email non valide";
+    emailErrorMessage.textContent = "Veuillez saisir une adresse email valide";
 
     emailErrorMessage.classList.add("errorClass");
 
@@ -184,6 +184,27 @@ function validateEmail() {
     return true;
   }
 }
+
+//Validation date de naissance
+
+// function isBirthdateValid()
+// {
+// 	const regexbirthdate = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/;
+// 	const currentYear = new Date().getFullYear();
+// 	if (!regexbirthdate.test(birthdate.value))
+// 	{
+// 		return false;
+// 	}
+// 	if (birthdate.value.split('-')[0] > (currentYear - 20))
+// 	{
+// 		return false
+// 	}
+// 	if (birthdate.value.split('-')[0] < (currentYear - 150))
+// 	{
+// 		return false
+// 	}
+// 	return true;
+// }
 
 // *********Validation tournois ********************
 
@@ -209,47 +230,47 @@ function validateUpDown() {
 
 // *********Validation villes ********************
 
-//création de la constante city
+// //création de la constante city
 
-const cityForm = document.querySelector("#location");
+// const cityForm = document.querySelector("#location");
 
-// Création de la balise p pour affichage message d'erreur
+// // Création de la balise p pour affichage message d'erreur
 
-const cityFormErrorMessage = document.createElement("p");
+// const cityFormErrorMessage = document.createElement("p");
 
-// //Ecouter la modification
+// // //Ecouter la modification
 
-cityForm.addEventListener("change", validateLocation);
+// cityForm.addEventListener("change", validateLocation);
 
-function validateLocation() {
-  if (document.querySelector("input[name='location']:checked") === null) {
-    cityFormErrorMessage.textContent = "Veuillez sélectionner une ville.";
-    cityFormErrorMessage.classList.add("errorClass");
-    cityForm.appendChild(cityFormErrorMessage);
-  } else {
-    cityFormErrorMessage.classList.remove("errorClass");
-    cityFormErrorMessage.textContent = "";
-  }
-}
+// function validateLocation() {
+//   if (document.querySelector("input[name='location']:checked") === null) {
+//     cityFormErrorMessage.textContent = "Veuillez sélectionner une ville.";
+//     cityFormErrorMessage.classList.add("errorClass");
+//     cityForm.appendChild(cityFormErrorMessage);
+//   } else {
+//     cityFormErrorMessage.classList.remove("errorClass");
+//     cityFormErrorMessage.textContent = "";
+//   }
+// }
 
 // // // *********Validation Terms ********************
 
-const checkboxTerms = document.querySelector("#checkbox1");
+const terms = document.querySelector("#checkbox1");
 
-const termsErrorMessage = document.createElement("p");
+const errorMsg = document.createElement("p");
 
-checkboxTerms.addEventListener("change", validCheckbox);
+terms.addEventListener("change", validTerms);
 
-function validCheckbox() {
-  if (document.getElementById("checkbox1").checked) {
-    termsErrorMessage.classList.remove("errorClass");
-    termsErrorMessage.textContent = "";
+function validTerms() {
+  if (terms.checked) {
+    errorMsg.classList.remove("errorClass");
+    errorMsg.textContent = "";
     return true;
   } else {
-    termsErrorMessage.textContent =
-      "Le nom ne peut pas contenir de chiffres, de caractères spéciaux ni d'espace.";
-    termsErrorMessage.classList.add("errorClass");
-    termsErrorMessage.appendChild(termsErrorMessage);
+    errorMsg.textContent =
+      "Vous devez vérifier que vous acceptez les termes et conditions.";
+    errorMsg.classList.add("errorClass");
+    terms.parentElement.appendChild(errorMsg);
     return false;
   }
 }
