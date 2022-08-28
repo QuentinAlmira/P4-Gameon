@@ -31,6 +31,12 @@ function closeModal() {
 modalCross.addEventListener("click", closeModal);
 
 // **********************************
+// Form validation submit
+// **********************************
+
+// Ecouter la validation du formulaire
+
+// **********************************
 // Form validation RegExp
 // **********************************
 
@@ -187,25 +193,41 @@ function validateEmail() {
 
 //Validation date de naissance
 
-// function isBirthdateValid()
-// {
-// 	const regexbirthdate = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/;
-// 	const currentYear = new Date().getFullYear();
-// 	if (!regexbirthdate.test(birthdate.value))
-// 	{
-// 		return false;
-// 	}
-// 	if (birthdate.value.split('-')[0] > (currentYear - 20))
-// 	{
-// 		return false
-// 	}
-// 	if (birthdate.value.split('-')[0] < (currentYear - 150))
-// 	{
-// 		return false
-// 	}
-// 	return true;
-// }
+const birth = document.querySelector("#birthdate");
 
+var currentYear = new Date().getFullYear();
+
+const birthError = document.createElement("p");
+
+birth.addEventListener("change", validBirthdate);
+
+function validBirthdate() {
+  const birthRegExp = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/;
+
+  if (!birthRegExp.test(birth.value)) {
+    birth.style.border = "3px solid red";
+    birthError.textContent = "Veuilez entrer une date de naissance valide";
+    birthError.classList.add("errorClass");
+    birth.parentElement.appendChild(birthError);
+    return false;
+  } else if (birthdate.value.split("-")[0] > currentYear - 20) {
+    birth.style.border = "3px solid red";
+    birthError.textContent = "Veuilez entrer une date de naissance valide";
+    birthError.classList.add("errorClass");
+    birth.parentElement.appendChild(birthError);
+    return false;
+  } else if (birthdate.value.split("-")[0] < currentYear - 150) {
+    birth.style.border = "3px solid red";
+    birthError.textContent = "Veuilez entrer une date de naissance valide";
+    birthError.classList.add("errorClass");
+    birth.parentElement.appendChild(birthError);
+    return false;
+  } else {
+    birth.style.border = "3px solid green";
+    birthError.textContent = "";
+    return true;
+  }
+}
 // *********Validation tournois ********************
 
 const quantity = document.querySelector("#quantity");
@@ -230,28 +252,22 @@ function validateUpDown() {
 
 // *********Validation villes ********************
 
-// //création de la constante city
+const cityForm = document.querySelector(".cityForm");
 
-// const cityForm = document.querySelector("#location");
+const cityFormErrorMessage = document.createElement("p");
 
-// // Création de la balise p pour affichage message d'erreur
-
-// const cityFormErrorMessage = document.createElement("p");
-
-// // //Ecouter la modification
-
-// cityForm.addEventListener("change", validateLocation);
-
-// function validateLocation() {
-//   if (document.querySelector("input[name='location']:checked") === null) {
-//     cityFormErrorMessage.textContent = "Veuillez sélectionner une ville.";
-//     cityFormErrorMessage.classList.add("errorClass");
-//     cityForm.appendChild(cityFormErrorMessage);
-//   } else {
-//     cityFormErrorMessage.classList.remove("errorClass");
-//     cityFormErrorMessage.textContent = "";
-//   }
-// }
+cityForm.addEventListener("change", validateLocation);
+validateLocation();
+function validateLocation() {
+  if (document.querySelector("input[name='location']:checked") === null) {
+    cityFormErrorMessage.textContent = "Veuillez sélectionner une ville.";
+    cityFormErrorMessage.classList.add("errorClass");
+    cityForm.appendChild(cityFormErrorMessage);
+  } else {
+    cityFormErrorMessage.classList.remove("errorClass");
+    cityFormErrorMessage.textContent = "";
+  }
+}
 
 // // // *********Validation Terms ********************
 
