@@ -34,6 +34,49 @@ modalCross.addEventListener("click", closeModal);
 // Form validation submit
 // **********************************
 
+const loginForm = document.querySelector("#loginForm");
+
+let submitButton = document.querySelector(".btn-submit");
+
+const modalbdy = document.querySelector(".modal-body");
+
+const formSucces = document.createElement("div");
+
+const formSuccesh1 = document.createElement("div");
+const formSuccesh2 = document.createElement("div");
+
+submitButton.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  if (
+    validatePrenom() &&
+    validateNom() &&
+    validateEmail() &&
+    validBirthdate() &&
+    validateQuantity() &&
+    validateLocation() &&
+    validTerms()
+  ) {
+    loginForm.remove();
+    formSucces.classList.add("succes");
+    modalbdy.parentElement.appendChild(formSucces);
+    formSucces.append(formSuccesh1);
+    formSuccesh1.classList.add("succesMessageh1");
+    formSuccesh1.textContent = "Bravo !";
+    formSucces.append(formSuccesh2);
+    formSuccesh2.classList.add("succesMessageh2");
+    formSuccesh2.textContent = "Votre inscription à bien été prise en compte.";
+  } else {
+    validatePrenom();
+    validateNom();
+    validateEmail();
+    validBirthdate();
+    validateQuantity();
+    validateLocation();
+    validTerms();
+  }
+});
+
 // Ecouter la validation du formulaire
 
 // **********************************
@@ -232,21 +275,25 @@ function validBirthdate() {
 
 const quantity = document.querySelector("#quantity");
 
-quantity.addEventListener("change", validateUpDown);
+quantity.addEventListener("change", validateQuantity);
 
 const quantityErrorMessage = document.createElement("p");
 
-function validateUpDown() {
-  if (quantity.value >= 0 && quantity.value <= 99) {
+function validateQuantity() {
+  const quantityRegExp = /^[0-99][0-9]?$/;
+
+  if (!quantityRegExp.test(quantity.value)) {
+    quantity.style.border = "3px solid red";
+    quantityErrorMessage.classList.add("errorClass");
+    quantityErrorMessage.textContent =
+      "Veuillez entrer une valeur entre 0 et 100";
+    quantity.parentElement.appendChild(quantityErrorMessage);
+    return false;
+  } else {
     quantity.style.border = "3px solid green";
     quantityErrorMessage.classList.remove("errorClass");
     quantityErrorMessage.textContent = "";
-  } else {
-    quantity.style.border = "3px solid red";
-    quantityErrorMessage.textContent =
-      "Veuillez entrer un nombre entre 1 et 99.";
-    quantityErrorMessage.classList.add("errorClass");
-    quantity.parentElement.appendChild(quantityErrorMessage);
+    return true;
   }
 }
 
@@ -257,15 +304,17 @@ const cityForm = document.querySelector(".cityForm");
 const cityFormErrorMessage = document.createElement("p");
 
 cityForm.addEventListener("change", validateLocation);
-validateLocation();
+
 function validateLocation() {
   if (document.querySelector("input[name='location']:checked") === null) {
     cityFormErrorMessage.textContent = "Veuillez sélectionner une ville.";
     cityFormErrorMessage.classList.add("errorClass");
     cityForm.appendChild(cityFormErrorMessage);
+    return false;
   } else {
     cityFormErrorMessage.classList.remove("errorClass");
     cityFormErrorMessage.textContent = "";
+    return true;
   }
 }
 
