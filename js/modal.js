@@ -12,6 +12,16 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const modalCross = document.querySelector(".close");
+const loginForm = document.querySelector("#loginForm");
+const submitButton = document.querySelector(".btn-submit");
+const modalbdy = document.querySelector(".modal-body");
+const prenom = document.querySelector("#first");
+const nom = document.querySelector("#last");
+const email = document.querySelector("#email");
+const birth = document.querySelector("#birthdate");
+const quantity = document.querySelector("#quantity");
+const cityForm = document.querySelector(".cityForm");
+const terms = document.querySelector("#checkbox1");
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -33,13 +43,6 @@ modalCross.addEventListener("click", closeModal);
 // **********************************
 // Form validation submit
 // **********************************
-
-const loginForm = document.querySelector("#loginForm");
-
-let submitButton = document.querySelector(".btn-submit");
-
-const modalbdy = document.querySelector(".modal-body");
-
 const formSucces = document.createElement("div");
 
 const formSuccesh1 = document.createElement("div");
@@ -77,135 +80,125 @@ submitButton.addEventListener("click", function (e) {
   }
 });
 
-// Ecouter la validation du formulaire
-
 // **********************************
 // Form validation RegExp
 // **********************************
 
 // *********Validation Prénom ********************
-
-//création de la constante prenom
-
-const prenom = document.querySelector("#first");
-
-// Création de la balise p pour affichage message d'erreur
+// 'p' creation for error message display
 
 const prenomErrorMessage = document.createElement("p");
 
-// //Ecouter la modification
-
+//Listening to modification
 prenom.addEventListener("keyup", validatePrenom);
 
-//Fonction et RegExp
+//Fonction & RegExp
 
+//prenom regExp
 function validatePrenom() {
   const prenomRegExp = /^[a-zA-ZÀ-ÿ-]+$/;
 
-  //Vérification du nombre de caractères saisis
+  //****check 'prenom' value lenth****
   if (prenom.value.length < 2) {
-    //Bordures en rouge si prénom < 2 caractère
-    prenom.style.border = "3px solid red";
-    //Message d'erreur
+    //apply red border
+    prenom.style.border = "3px solid crimson";
+    //error message
     prenomErrorMessage.textContent =
       "Veuillez entrer 2 caractères ou plus pour le prénom.";
-    //Application de la class CSS
+    //apply css class
     prenomErrorMessage.classList.add("errorClass");
-    //Injection de la balise 'p' dans le composant parent de l'input prenom
-    prenom.parentElement.appendChild(prenomErrorMessage);
-    //Retour faux pour la validation du formulaire
-    return false;
-
-    //Vérification du type de caractère saisis
-  } else if (!prenomRegExp.test(prenom.value)) {
-    //Si les paramamètres de la RegExp non respectés
-    //Bordures en rouge
-    prenom.style.border = "3px solid red";
-    //Message d'erreur
-    prenomErrorMessage.textContent =
-      "Le prénom ne peut pas contenir de chiffres, de caractères spéciaux ni d'espace.";
-    //Application de la class CSS
-    prenomErrorMessage.classList.add("errorClass");
-    //Injection de la balise 'p' dans le composant parent de l'input prenom
+    //Inject 'p' for error message display
     prenom.parentElement.appendChild(prenomErrorMessage);
     //return false in order to impeed form validation
     return false;
+
+    //****check regExp validation****
+  } else if (!prenomRegExp.test(prenom.value)) {
+    //if RegExp non valid
+    //apply red border
+    prenom.style.border = "3px solid red";
+    //error message
+    prenomErrorMessage.textContent =
+      "Le prénom ne peut pas contenir de chiffres, de caractères spéciaux ni d'espace.";
+    //apply css class
+    prenomErrorMessage.classList.add("errorClass");
+    //inject 'p' for error message display
+    prenom.parentElement.appendChild(prenomErrorMessage);
+    impeed;
+    //return false in order to impeed form validation
+    return false;
   } else {
-    //Si aucune des conditions ci-dessous ne sont validées, cela signifie que l'utilisateur à saisi un prénom correct
-    //Bordures en rouge
+    //If none of above conditions are valids, user has put a correct firstname so:
+    //apply green border
     prenom.style.border = "3px solid green";
-    //Retirer message d'erreur / Ne rien afficher
+    //Remove error message
     prenomErrorMessage.classList.remove("errorClass");
     prenomErrorMessage.textContent = "";
-    //Retour vrai pour la validation du formulaire
+    //return true for submit form
     return true;
   }
 }
 
 // *********Validation Nom ********************
-
-//création de la constante nom
-
-const nom = document.querySelector("#last");
-
-// Création de la balise p pour affichage message d'erreur
+//'p' creation for error message display
 
 const nomErrorMessage = document.createElement("p");
 
-// //Ecouter la modification
+// //Listening to modification
 
 nom.addEventListener("keyup", validateNom);
 
 //Fonction et RegExp
 
+//nom regExp
 function validateNom() {
   const nomRegExp = /^[a-zA-ZÀ-ÿ-]+$/;
 
-  //Vérification du nombre de caractères saisis
+  //check value length
   if (nom.value.length < 2) {
-    //Bordures en rouge si prénom < 2 caractère
+    //apply red border
     nom.style.border = "3px solid red";
-    //Message d'erreur
+    //error message
     nomErrorMessage.textContent =
       "Veuillez entrer 2 caractères ou plus pour le nom.";
-    //Application de la class CSS
+    //apply css class
     nomErrorMessage.classList.add("errorClass");
-    //Injection de la balise 'p' dans le composant parent de l'input nom
+    //inject 'p' for error message display
     nom.parentElement.appendChild(nomErrorMessage);
-    //Retour faux pour la validation du formulaire
+    //return false in order to impeed form validation
     return false;
 
-    //Vérification du type de caractère saisis
+    //****check regExp validation****
   } else if (!nomRegExp.test(nom.value)) {
-    //Si les paramamètres de la RegExp non respectés
-    //Bordures en rouge
+    //if RegExp non valid
+    //apply red border
     nom.style.border = "3px solid red";
-    //Message d'erreur
+    //error message
     nomErrorMessage.textContent =
       "Le nom ne peut pas contenir de chiffres, de caractères spéciaux ni d'espace.";
-    //Application de la class CSS
+    //apply css class
     nomErrorMessage.classList.add("errorClass");
-    //Injection de la balise 'p' dans le composant parent de l'input nom
+    //inject 'p' for error message display
     nom.parentElement.appendChild(nomErrorMessage);
     //return false in order to impeed form validation
     return false;
   } else {
-    //Si aucune des conditions ci-dessous ne sont validées, cela signifie que l'utilisateur à saisi un prénom correct
-    //Bordures en rouge
+    //If none of above conditions are valids, user has put a correct lasttname so:
+    //apply green border
     nom.style.border = "3px solid green";
-    //Retirer message d'erreur / Ne rien afficher
+    //Remove error message
     nomErrorMessage.classList.remove("errorClass");
     nomErrorMessage.textContent = "";
-    //Retour vrai pour la validation du formulaire
+    //return true for submit form
     return true;
   }
 }
 
 // *********Validation email ********************
-
-const email = document.querySelector("#email");
-
+// 'p' creation for error message display
 const emailErrorMessage = document.createElement("p");
+
+//Listening to modification
 
 email.addEventListener("keyup", validateEmail);
 
@@ -215,56 +208,66 @@ function validateEmail() {
   const emailRegExp =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+  //****check regExp validation****
+
+  //If regExp is not valid : Apply red border & error message
   if (!emailRegExp.test(email.value)) {
     email.style.border = "3px solid red";
-
     emailErrorMessage.textContent = "Veuillez saisir une adresse email valide";
-
     emailErrorMessage.classList.add("errorClass");
-
     email.parentElement.appendChild(emailErrorMessage);
-
     return false;
+    //If regExp is valid : Apply green border & remove error message
   } else {
     email.style.border = "3px solid green";
     emailErrorMessage.classList.remove("errorClass");
     emailErrorMessage.textContent = "";
-
     return true;
   }
 }
 
-//Validation date de naissance
+// *********Validation birthdate ********************
 
-const birth = document.querySelector("#birthdate");
+//Define current year
+let currentYear = new Date().getFullYear();
 
-var currentYear = new Date().getFullYear();
-
+// 'p' creation for error message display
 const birthError = document.createElement("p");
 
+//Listening to modification
 birth.addEventListener("change", validBirthdate);
 
+//Fonction & RegExp
+
+//birthdate regExp
 function validBirthdate() {
   const birthRegExp = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/;
 
+  //****check regExp validation****
+  //If regExp is not valid : Apply red border & error message
   if (!birthRegExp.test(birth.value)) {
     birth.style.border = "3px solid red";
     birthError.textContent = "Veuilez entrer une date de naissance valide";
     birthError.classList.add("errorClass");
     birth.parentElement.appendChild(birthError);
     return false;
-  } else if (birthdate.value.split("-")[0] > currentYear - 20) {
+    //check if user has 18 y/o
+  } else if (birthdate.value.split("-")[0] > currentYear - 18) {
+    // if user has less than 18 y/o : Apply red border & error message
     birth.style.border = "3px solid red";
     birthError.textContent = "Veuilez entrer une date de naissance valide";
     birthError.classList.add("errorClass");
     birth.parentElement.appendChild(birthError);
     return false;
+    //check if birthdate is bellow 150 y/o
+    // if user has put a +150years birthdate : Apply red border & error message
   } else if (birthdate.value.split("-")[0] < currentYear - 150) {
     birth.style.border = "3px solid red";
     birthError.textContent = "Veuilez entrer une date de naissance valide";
     birthError.classList.add("errorClass");
     birth.parentElement.appendChild(birthError);
     return false;
+    //if all conditions valid : Apply green border & remove error message
   } else {
     birth.style.border = "3px solid green";
     birthError.textContent = "";
@@ -272,16 +275,20 @@ function validBirthdate() {
   }
 }
 // *********Validation tournois ********************
+// 'p' creation for error message display
+const quantityErrorMessage = document.createElement("p");
 
-const quantity = document.querySelector("#quantity");
-
+// //Listening to modification
 quantity.addEventListener("change", validateQuantity);
 
-const quantityErrorMessage = document.createElement("p");
+//Fonction et RegExp
 
 function validateQuantity() {
   const quantityRegExp = /^[0-99][0-9]?$/;
 
+  //check regExp validation
+
+  //If regExp is not valid : Apply red border & error message
   if (!quantityRegExp.test(quantity.value)) {
     quantity.style.border = "3px solid red";
     quantityErrorMessage.classList.add("errorClass");
@@ -289,6 +296,7 @@ function validateQuantity() {
       "Veuillez entrer une valeur entre 0 et 100";
     quantity.parentElement.appendChild(quantityErrorMessage);
     return false;
+    //If regExp is valid : Apply green border & remove error message
   } else {
     quantity.style.border = "3px solid green";
     quantityErrorMessage.classList.remove("errorClass");
@@ -298,20 +306,23 @@ function validateQuantity() {
 }
 
 // *********Validation villes ********************
-
-const cityForm = document.querySelector(".cityForm");
-
+// 'p' creation for error message display
 const cityFormErrorMessage = document.createElement("p");
 
+//Listening to modification
 cityForm.addEventListener("change", validateLocation);
 
+//Fonction
 function validateLocation() {
+  //Check if user has check a city
   if (document.querySelector("input[name='location']:checked") === null) {
+    //if user has not check a city : Apply red border & error message
     cityFormErrorMessage.textContent = "Veuillez sélectionner une ville.";
     cityFormErrorMessage.classList.add("errorClass");
     cityForm.appendChild(cityFormErrorMessage);
     return false;
   } else {
+    //if user has check a city : Apply green border & error message
     cityFormErrorMessage.classList.remove("errorClass");
     cityFormErrorMessage.textContent = "";
     return true;
@@ -319,19 +330,21 @@ function validateLocation() {
 }
 
 // // // *********Validation Terms ********************
-
-const terms = document.querySelector("#checkbox1");
-
+// 'p' creation for error message display
 const errorMsg = document.createElement("p");
 
+//Listening to modification
 terms.addEventListener("change", validTerms);
 
+//check if user has accept the terms
 function validTerms() {
   if (terms.checked) {
+    //if user has check the terms : Apply green border & remove error message
     errorMsg.classList.remove("errorClass");
     errorMsg.textContent = "";
     return true;
   } else {
+    //if user has not check the terms : Apply red border & remove error message
     errorMsg.textContent =
       "Vous devez vérifier que vous acceptez les termes et conditions.";
     errorMsg.classList.add("errorClass");

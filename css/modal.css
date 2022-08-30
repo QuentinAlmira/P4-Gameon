@@ -543,7 +543,7 @@ footer {
 .errorClass {
   font-weight: bolder;
   font-size: 0.8rem;
-  color: red;
+  color: crimson;
 }
 
 .succes {
@@ -558,13 +558,13 @@ footer {
 }
 
 .succesMessageh1 {
-  color: green;
-  font-size: 1.5rem;
+  color: #2bb673;
+  font-size: 1.6rem;
 }
 
 .succesMessageh2 {
   color: #c4c4c4;
-  padding: 20px;
+  padding: 15px;
   font-size: 1rem;
 }
 
@@ -575,8 +575,8 @@ footer {
   align-items: center;
   width: 30px;
   height: 30px;
-  color: green;
+  color: #2bb673;
   border-radius: 50%;
-  border: 3px solid green;
+  border: 3px solid #2bb673;
   font-size: 1rem;
 }
