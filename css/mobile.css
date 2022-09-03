@@ -1,0 +1,65 @@
+/* ****Responsive mobile**** */
+
+@media screen and (max-width: 767px) {
+  /*Topnav*/
+
+  /* Logo */
+
+  img {
+    height: 15px;
+  }
+
+  /* Navbar */
+
+  .topnav {
+    margin: 10px 20px 10px 20px;
+  }
+
+  .main-navbar a {
+    font-size: 1rem;
+  }
+
+  .navlist {
+    flex-direction: column;
+  }
+
+  /* Hero section */
+
+  .hero-section {
+    display: block;
+    box-shadow: unset;
+  }
+  .hero-content {
+    background: #fff;
+    color: #000;
+  }
+  .hero-content::after {
+    content: unset;
+  }
+  .hero-content .btn-signup {
+    display: none;
+  }
+  .hero-headline {
+    font-size: 2rem;
+    white-space: normal;
+    padding: 0;
+  }
+  .hero-text {
+    width: 100%;
+    font-size: 0.7rem;
+    padding-left: 0px;
+  }
+  .hero-img img {
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  .hero-section > .btn-signup {
+    display: block;
+    margin: 32px auto 10px;
+    padding: 12px 35px;
+    font-size: 0.8rem;
+  }
+  .copyrights {
+    text-align: center;
+  }
+}

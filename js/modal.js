@@ -1,9 +1,13 @@
+const topnavIcon = document.querySelector("#icon");
+
 function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
     x.className += " responsive";
+    // topnavIcon.style.display = "none";
   } else {
     x.className = "topnav";
+    //topnavIcon.style.display = "flex";
   }
 }
 

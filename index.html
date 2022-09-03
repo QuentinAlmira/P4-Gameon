@@ -6,6 +6,9 @@
   <title>Reservation</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="stylesheet" href="./css/modal.css" />
+  <link rel="stylesheet" href="./css/tablette.css">
+  <link rel="stylesheet" href="./css/mobile.css">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href="https://fonts.googleapis.com/css?family=DM+Sans" rel="stylesheet" />
 </head>
@@ -16,15 +19,22 @@
       <img alt="logo" src="./image/Logo.png" width="auto" height="auto" />
     </div>
     <div class="main-navbar">
+      <div class="navbarResponsive">
 
-      <!-- <a href="#" class="active"><span>Accueil</span></a> -->
-      <a href="#"><span>Détails de l'évènement</span></a>
-      <a href="#"><span>À propos</span></a>
-      <a href="#"><span>Contact</span></a>
-      <a href="#"><span>Évènements passés</span></a>
-      <a href="javascript:void(0);" class="icon" onclick="editNav()">
-        <i class="fa fa-bars"></i>
-      </a>
+        <div class="navlist">
+          <a href="index.html" class="active"><span>Accueil</span></a>
+          <a href="#"><span>Détails de l'évènement</span></a>
+          <a href="#"><span>À propos</span></a>
+          <a href="#"><span>Contact</span></a>
+          <a href="#"><span>Évènements passés</span></a>
+        </div>
+        <div class="navicon">
+          <a href="javascript:void(0);" class="icon" id="icon" onclick="editNav()">
+            <i class="fa fa-bars"></i>
+          </a>
+        </div>
+      </div>
+
     </div>
   </div>
   </div>
